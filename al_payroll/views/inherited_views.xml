@@ -88,8 +88,11 @@
 
 
                 <xpath expr="//page[@name='personal_information']/group/group[2]" position="after">
-                    <group name="identification_id" string="Identification ID">
+                    <group name="identification_id" string="Iqama/Identification ID">
+                        <field name="profession"/>
                         <field name="identification_id"/>
+                        <field name="entry_number"/>
+                        <field name="entry_date"/>
                         <label for="iqama_issuance" string="ID Issuance Date" />
 								<div>
 									<field name="id_issuance_date" class="oe_inline" groups="hr.group_hr_user" placeholder="In Georgian"/>
@@ -108,6 +111,8 @@
 									-
 									<field name="residence_expire_date_hijri" class="oe_inline" groups="hr.group_hr_user" placeholder="In Hijri"/>
 								</div>
+						<field name="transfer_date"/>
+						<field name="social_security_number"/>		
                         <field name="id_attachment_id" groups="hr.group_hr_user" widget="many2many_binary" class="oe_inline"/>
                     </group>
 
@@ -126,6 +131,13 @@
 									<field name="passport_expiry_date_hijri" class="oe_inline" groups="hr.group_hr_user" placeholder="In Hijri"/>
 								</div>
                         <field name="passport_attachment_id" groups="hr.group_hr_user" widget="many2many_binary" class="oe_inline"/>
+                    </group>
+                    <group string="Insurance Details">
+                        <field name="insurance_company"/>
+                        <field name="policy_number"/>
+                        <field name="insurance_card_number"/>
+                        <field name="insurance_start_date"/>
+                        <field name="insurance_end_date"/>
                     </group>
                     <group name="issue_date" string="Health Certificate">
                         <field name="health_certificate_number" groups="hr.group_hr_user"/>
@@ -262,6 +274,7 @@
             </field>
         </record>
 
+<!--
         <record model="ir.ui.view" id="view_hr_payslip_filter_inherit">
             <field name="name">view.hr.payslip.filter.inherit</field>
             <field name="model">hr.payslip</field>
@@ -273,6 +286,7 @@
                 </xpath>
             </field>
         </record>
+-->
 
         <!-- HR Contract Inherited here -->
 
@@ -354,7 +368,7 @@
                                     <group string="Position">
                                         <field name="department_id"/>
                                         <field name="job_id"/>
-                                        <field name="job_title"/>
+<!--                                        <field name="job_title"/>    -->
                                         <field name="parent_id"/>
                                         <field name="coach_id"/>
                                         <field name="resource_calendar_id" required="1"/>
@@ -386,14 +400,14 @@
                                             It should be different from the work address.
                                         </div>
                                         <field name="emergency_contact"/>
-                                        <field name="emergency_phone"/>
-                                        <field name="km_home_work" groups="hr.group_hr_user"/>
+<!--                                        <field name="emergency_phone"/>    
+                                        <field name="km_home_work" groups="hr.group_hr_user"/>    -->
                                     </group>
                                     <group string="Status">
                                         <field name="gender"/>
                                         <field name="marital"/>
-                                        <field name="spouse_complete_name" attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>
-                                        <field name="spouse_birthdate" attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>
+<!--                                        <field name="spouse_complete_name" attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>    
+                                        <field name="spouse_birthdate" attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>    -->
                                         <field name="children"/>
                                     </group>
                                     <group string="Birth">
@@ -406,18 +420,21 @@
                                         <field name="permit_no"/>
                                         <field name="visa_expire"/>
                                     </group>
-                                    <group string="Education">
-                                        <field name="certificate"/>
-                                        <field name="study_field"/>
+<!--                                    <group string="Education">
+                                        <field name="certificate"/>    
+                                        <field name="study_field"/>    
                                         <field name="study_school"/>
-                                    </group>
+                                    </group>    -->
                                 </group>
+<!--
                                 <group>
                                     <field name="google_drive_link" widget="url"/>
                                 </group>
+
                                 <group>
                                     <field name="additional_note"/>
                                 </group>
+-->
                             </page>
                             <page name="hr_settings" string="HR Settings" groups="hr.group_hr_user">
                                 <group>
@@ -430,11 +447,13 @@
                         </notebook>
                         </div></div>
                     </sheet>
+<!--                    
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
                         <field name="activity_ids" widget="mail_activity"/>
                         <field name="message_ids" widget="mail_thread"/>
                     </div>
+-->
                 </form>
             </field>
         </record>
