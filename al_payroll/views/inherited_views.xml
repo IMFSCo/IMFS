@@ -166,11 +166,11 @@
                         </group>
                     </page>
                 </xpath>
-
+<!--
                 <xpath expr="//page[@name='personal_information']//field[@name='place_of_birth']" position="after">
                     <field name="age"></field>
                 </xpath>
-
+-->
                 <xpath expr="//page[@name='public']//field[@name='work_phone']" position="after">
                     <field name="limit"></field>
                 </xpath>

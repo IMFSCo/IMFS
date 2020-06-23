@@ -419,16 +419,16 @@ class HrEmployee(models.Model):
         result = super(HrEmployee, self).create(vals)
         return result
 
-    @api.one
-    @api.depends('birthday')
-    def get_age(self):
-     res = {}
-     for rec in self:
-         if rec.birthday:
-             birthday = rec.birthday
-             age_calc = (datetime.date.today() - birthday).days/365
-             age= str(age_calc)
-             rec.age = age
+#    @api.one
+#    @api.depends('birthday')
+#    def get_age(self):
+#     res = {}
+#     for rec in self:
+#         if rec.birthday:
+#             birthday = rec.birthday
+#             age_calc = (datetime.now() - birthday).days/365
+#             age= str(age_calc)
+#             rec.age = age
 
     def compute_age(self):
         for res in self:
