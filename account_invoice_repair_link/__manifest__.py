@@ -12,7 +12,7 @@
     'website': 'https://github.com/OCA/account-invoicing',
     'depends': [
         'account',
-        'repair',
+        'mrp_repair',
     ],
     'data': [
         'views/account_invoice_views.xml',

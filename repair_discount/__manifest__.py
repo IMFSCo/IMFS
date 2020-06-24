@@ -11,7 +11,7 @@
               "Tecnativa, "
               "Odoo Community Association (OCA)",
     "website": "http://www.agilebg.com",
-    'depends': ['repair'],
+    'depends': ['mrp_repair'],
     "data": ["views/mrp_repair_view.xml"],
     "installable": True,
 }
