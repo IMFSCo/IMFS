@@ -1,12 +1,12 @@
 <odoo>
 	<data>
 
-		<menuitem id="loan_root" name="Loans" sequence="9" />
+		<menuitem id="loan_root" name="Loans" sequence="9" parent="hr.menu_hr_root"/>
 
 		<menuitem id="loan_root_account" parent="loan_root" name="Accounting" sequence="9"
 		          groups="account.group_account_invoice"/> 
 
-		<menuitem id="policy_configure" parent="loan_root" name="Configuration"
+		<menuitem id="policy_configure" parent="hr.menu_human_resources_configuration" name="Loan Settings"
 		 		  groups="account.group_account_invoice,hr.group_hr_user"/>
 
 		<!-- Loan Repayment Menu -->
