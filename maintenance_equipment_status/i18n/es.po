@@ -17,44 +17,49 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__active
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_active
 msgid "Active"
 msgstr "Activo"
 
 #. module: maintenance_equipment_status
-#: model_terms:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_search
+#: model:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_search
 msgid "Archived"
 msgstr "Archivado"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__category_ids
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_category_ids
 msgid "Categories"
 msgstr "Categorías"
 
 #. module: maintenance_equipment_status
-#: model_terms:ir.actions.act_window,help:maintenance_equipment_status.maintenance_equipment_status_action
+#: model:ir.actions.act_window,help:maintenance_equipment_status.maintenance_equipment_status_action
 msgid "Click to set a new status for your equipments."
 msgstr "Hacer click para crear nuevos estados para los equipamientos."
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__create_uid
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__create_date
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__display_name
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_display_name
 msgid "Display Name"
 msgstr "Nombre a mostrar"
 
 #. module: maintenance_equipment_status
-#: model_terms:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_form
-#: model_terms:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_search
-#: model_terms:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_tree
+#: model:ir.model,name:maintenance_equipment_status.model_maintenance_equipment
+msgid "Equipment"
+msgstr "Equipamiento"
+
+#. module: maintenance_equipment_status
+#: model:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_form
+#: model:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_search
+#: model:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_tree
 msgid "Equipment Status"
 msgstr "Estado del Equipamiento"
 
@@ -65,31 +70,24 @@ msgid "Equipment Statuses"
 msgstr "Estados de Equipamiento"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__id
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_id_4171
 msgid "ID"
 msgstr "ID"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status____last_update
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status___last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__write_uid
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_write_uid
 msgid "Last Updated by"
 msgstr "Última modificación por"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__write_date
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_write_date
 msgid "Last Updated on"
 msgstr "Última Actualización el"
-
-#. module: maintenance_equipment_status
-#: model:ir.model,name:maintenance_equipment_status.model_maintenance_equipment
-#, fuzzy
-#| msgid "Maintenance Equipment Status"
-msgid "Maintenance Equipment"
-msgstr "Estados de Equipos"
 
 #. module: maintenance_equipment_status
 #: model:ir.model,name:maintenance_equipment_status.model_maintenance_equipment_status
@@ -97,33 +95,33 @@ msgid "Maintenance Equipment Status"
 msgstr "Estados de Equipos"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__name
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_name_4167
 msgid "Name"
 msgstr "Nombre"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__note
-#: model_terms:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_form
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_note
+#: model:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_form
 msgid "Notes"
 msgstr "Notas"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status__sequence
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_sequence
 msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment__status_id
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_id
 msgid "Status"
 msgstr "Estado"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment__status_name
+#: model:ir.model.fields,field_description:maintenance_equipment_status.field_maintenance_equipment_status_name
 msgid "Status name"
 msgstr "Nombre del Estado"
 
 #. module: maintenance_equipment_status
-#: model:ir.model.fields,help:maintenance_equipment_status.field_maintenance_equipment_status__category_ids
+#: model:ir.model.fields,help:maintenance_equipment_status.field_maintenance_equipment_status_category_ids
 msgid ""
 "When set, this status will only be applicable to the equipments under these "
 "categories."
@@ -132,9 +130,6 @@ msgstr ""
 "categorías."
 
 #. module: maintenance_equipment_status
-#: model_terms:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_form
+#: model:ir.ui.view,arch_db:maintenance_equipment_status.maintenance_equipment_status_view_form
 msgid "e.g. Operational"
 msgstr "p. e. Operativo"
-
-#~ msgid "Equipment"
-#~ msgstr "Equipamiento"
