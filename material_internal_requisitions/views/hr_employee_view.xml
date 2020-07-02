@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+
 	<data>
+ <record id="inv_validate_form_inherit" model="ir.ui.view">
+            <field name="name">form.validate.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_invoice_sent']" position="after">
+                    <button name="action_invoice_open" type="object" states="draft" string="Validate" class="oe_highlight o_invoice_validate" groups="material_internal_requisitions.validate_inv_group"/>
+                </xpath>
+            </field>
+        </record>
+<record id="inv_validate_form_bill_inherit" model="ir.ui.view">
+            <field name="name">form.validate.bill.view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_invoice_draft']" position="before">
+                    <button name="action_invoice_open" type="object" states="draft" string="Validate" class="oe_highlight" groups="material_internal_requisitions.validate_inv_group"/>
+                </xpath>
+            </field>
+        </record>
+
+
 		<record id="internal_requisition_employee_form_view"
 			model="ir.ui.view">
 			<field name="name">hr.employee.form.view</field>

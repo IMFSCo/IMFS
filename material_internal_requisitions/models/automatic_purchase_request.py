@@ -42,7 +42,7 @@ class wizard_create_purchase(models.TransientModel):
         records = self.env['requisition.procurement'].browse(self.env.context.get('active_ids'))
         for rec in records:
             source = ','.join(list(set(
-                records.mapped('requisition_id').mapped('name') if records.requisition_id else records.mapped('name'))))
+                rec.mapped('requisition_id').mapped('name') if rec.requisition_id else rec.mapped('name'))))
 
         if len(records.filtered(lambda x: x.status != 'waiting')) > 0:
             raise UserError(_('Selected Records should be in Waiting state'))
@@ -111,7 +111,7 @@ class inherit_stock_picking(models.Model):
 
         else:
 
-            for rec in self.move_ids_without_package.filtered(lambda r: r.product_uom_qty != r.reserved_availability):
+            for rec in self.move_lines.filtered(lambda r: r.product_uom_qty != r.reserved_availability):
                 diff = rec.product_uom_qty - rec.reserved_availability
 
                 if diff:
@@ -122,7 +122,7 @@ class inherit_stock_picking(models.Model):
             if diff:
                 msg = msg + "Procurement Created ! \n"
 
-            if self.move_ids_without_package.filtered(lambda r: r.product_uom_qty == r.reserved_availability):
+            if self.move_lines.filtered(lambda r: r.product_uom_qty == r.reserved_availability):
                 msg = msg + "Quantity Reserved !"
 
             return msg
@@ -142,7 +142,7 @@ class inherit_stock_picking(models.Model):
             raise UserError(_('Nothing to check the availability for.'))
         # If a package level is done when confirmed its location can be different than where it will be reserved.
         # So we remove the move lines created when confirmed to set quantity done to the new reserved ones.
-        package_level_done = self.mapped('package_level_ids').filtered(
+        package_level_done = self.mapped('entire_package_ids').filtered(
             lambda pl: pl.is_done and pl.state == 'confirmed')
         package_level_done.write({'is_done': False})
         moves._action_assign()
