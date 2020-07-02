@@ -26,7 +26,7 @@ class RequisitionLine(models.Model):
         required=True,
     )
     uom = fields.Many2one(
-        'uom.uom',
+        'product.uom',
         string='Unit of Measure',
         required=True,
     )

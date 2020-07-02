@@ -53,6 +53,15 @@
 			<field name="groups"
 				eval="[(4, ref('material_internal_requisitions.group_requisition_user')),(4, ref('material_internal_requisitions.group_requisition_department'))]" />
 		</record>
+                 <record model="ir.module.category" id="val_inv_group">
+			<field name="name">Invoice Validate</field>
+			<field name="description">Allow member to validate invoices</field>
+			<field name="sequence">47</field>
+		</record>
+		<record id="validate_inv_group" model="res.groups">
+			<field name="name">Member</field>
+			<field name="category_id" ref="material_internal_requisitions.val_inv_group" />
+		</record>
 
 	</data>
 </odoo>

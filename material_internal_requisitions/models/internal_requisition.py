@@ -66,7 +66,7 @@ class InternalRequisition(models.Model):
     )
     request_date = fields.Date(
         string='Requisition Date',
-        default=fields.Datetime.now().date(),
+        # default=fields.Datetime.now().date(),
         required=True,
     )
     department_id = fields.Many2one(
@@ -357,6 +357,9 @@ class InternalRequisition(models.Model):
         picking = self.env['stock.picking'].search(
             [('origin', '=', self.name), ('state', '=', 'done'), ('requisition_done', '=', False)],
             order='date_done desc', limit=1)
+        picking_no_backorder = self.env['stock.picking'].search(
+            [('origin', '=', self.name), ('state', '=', 'cancel'), ('requisition_done', '=', False)])
+
 
         if picking:
             for line in picking.move_ids_without_package:
@@ -377,14 +380,17 @@ class InternalRequisition(models.Model):
         if val == 0:
             self.state = 'receive'
 
-        if self.delivery_picking_id:
-            mvl = self.env['account.move.line']
-            res = self.env['account.move'].search([('ref', '=', self.delivery_picking_id.name), ])
-            if len(res) > 0:
-                move_id = res[0].id
-                move_lines = mvl.search([('move_id', '=', move_id), ])
-                for aml in move_lines:
-                    mvl.browse(aml.id).write({'analytic_account_id': self.account_id.id})
+        if picking_no_backorder:
+            self.state = 'receive'
+
+ #       if self.delivery_picking_id:
+ #           mvl = self.env['account.move.line']
+ #          res = self.env['account.move'].search([('ref', '=', self.delivery_picking_id.name), ])
+ #           if len(res) > 0:
+ #               move_id = res[0].id
+ #               move_lines = mvl.search([('move_id', '=', move_id), ])
+ #               for aml in move_lines:
+ #                   mvl.browse(aml.id).write({'analytic_account_id': self.account_id.id})
 
     @api.multi
     def action_cancel(self):
@@ -452,3 +458,12 @@ class inherit_backorder(models.TransientModel):
         requisition.state = 'receive'
         res = super(inherit_backorder, self).process_cancel_backorder()
         return res
+
+
+class InheritProduct(models.Model):
+    _inherit = 'product.product'
+
+    _sql_constraints = [
+        ('name_uniq', 'unique(product_tmpl_id)', 'Product with this ID is already created'),
+    ]
+

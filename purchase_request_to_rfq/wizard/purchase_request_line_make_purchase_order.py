@@ -97,7 +97,6 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
                 _('Enter a supplier.'))
         supplier = self.supplier_id
         data = {
-            'name':self.env['ir.sequence'].next_by_code('request.for.purchase'),
             'origin': source,
             'partner_id': self.supplier_id.id,
             'fiscal_position_id': supplier.property_account_position_id and
@@ -265,7 +264,7 @@ class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
     name = fields.Char(string='Description', required=True)
     product_qty = fields.Float(string='Quantity to purchase',
                                digits=dp.get_precision('Product UoS'))
-    product_uom_id = fields.Many2one('uom.uom', string='UoM')
+    product_uom_id = fields.Many2one('product.uom', string='UoM')
 
     keep_description = fields.Boolean(string='Copy descriptions to new PO',
                                       help='Set true if you want to keep the '
@@ -377,4 +376,4 @@ class PurchaseRequestLineMakePurchaseAgreementItem(models.TransientModel):
     name = fields.Char(string='Description', required=True)
     product_qty = fields.Float(string='Quantity to purchase',
                                digits=dp.get_precision('Product UoS'))
-    product_uom_id = fields.Many2one('uom.uom', string='UoM')
+    product_uom_id = fields.Many2one('product.uom', string='UoM')

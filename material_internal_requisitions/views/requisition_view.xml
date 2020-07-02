@@ -77,7 +77,7 @@
 								<field name="requisition_line_ids"
 									attrs="{'readonly': [('state', '!=', 'draft')]}">
 									<tree editable="bottom">
-										<field name="product_id" />
+						<field name="product_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
 										<field name="description" />
 										<field name="qty" />
 										<field name="uom" />
@@ -183,9 +183,14 @@
 			groups="base.group_user" />
 		<menuitem id="menu_internal_requisition"
 			name="Internal Requisition" parent="menu_requisition" />
+<!--<menuitem id="menu_requisition_report"
+			name="Reporting" parent="menu_requisition" />-->
 		<menuitem id="menu_internal_requisitions"
 			name="Internal Requisitions" parent="menu_internal_requisition"
 			action="action_material_internal_requisition" />
+<!--<menuitem id="menu_internal_report"
+			name="Manufacturing Report" parent="menu_requisition_report"
+			action="action_report_wizard_req" />-->
 
 	</data>
 </odoo>
