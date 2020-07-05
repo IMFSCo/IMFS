@@ -284,7 +284,7 @@ class PurchaseRequestLine(models.Model):
     @api.multi
     def _compute_supplier_id(self):
         for rec in self:
-            rec.supplier_id = self.env['res.partner'].search([('name', 'ilike', 'Rekeep Saudi Co. Ltd')])
+            rec.supplier_id = self.env['res.partner'].search([('name', 'ilike', 'INTERNATIONAL MEDICAL FURNITURE & SUPPLIES')])
 
 
     product_id = fields.Many2one(
