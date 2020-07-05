@@ -362,7 +362,7 @@ class InternalRequisition(models.Model):
 
 
         if picking:
-            for line in picking.move_ids_without_package:
+            for line in picking.move_lines:
                 temp = {'product_id': line.product_id, 'quantity': line.quantity_done}
                 received.append(temp)
             picking.requisition_done = True

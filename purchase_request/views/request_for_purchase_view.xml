@@ -77,7 +77,9 @@
                                  <tree string="Purchase Order Lines" editable="bottom">
                                     <field name="currency_id" invisible="1"/>
                                     <field name="state" invisible="1"/>
+<!--
                                     <field name="product_type" invisible="1"/>
+-->
                                     <field name="sequence" widget="handle"/>
                                     <field name="product_id" attrs="{'readonly': [('state', 'in', ('purchase', 'to approve','done', 'cancel'))]}" context="{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}" force_save="1"/>
                                     <field name="name"/>
@@ -152,7 +154,9 @@
                                     </div>
                                 </group>
                                 <group>
+<!--
                                     <field name="user_id"/>
+-->
                                     <field name="invoice_status"/>
                                     <field name="payment_term_id" options="{'no_open': True, 'no_create': True}" attrs="{'readonly': ['|', ('invoice_status','=', 'invoiced'), ('state', '=', 'done')]}"/>
                                     <field name="fiscal_position_id" options="{'no_create': True}" attrs="{'readonly': ['|', ('invoice_status','=', 'invoiced'), ('state', '=', 'done')]}"/>
@@ -184,7 +188,9 @@
                     <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
                     <field name="date_planned" invisible="context.get('quotation_only', False)"/>
                     <field name="purchase_req_reference" string="PR Reference"/>
+                    <!--
                     <field name="user_id"/>
+                    -->
                     <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed" widget="monetary"/>
                     <field name="amount_total" sum="Total amount" widget="monetary"/>
                     <field name="currency_id" invisible="1"/>
@@ -201,9 +207,11 @@
                 <xpath expr="//field[@name='name']" position="before">
                     <field name="purchase_req_reference" string="PR Reference"/>
                 </xpath>
+<!--
                 <xpath expr="//filter[@name='representative']" position="after">
                     <filter string="PR Ref" name="purchase_req_reference" domain="[]" context="{'group_by':'purchase_req_reference'}"/>
                 </xpath>
+-->
             </field>
         </record>
 
