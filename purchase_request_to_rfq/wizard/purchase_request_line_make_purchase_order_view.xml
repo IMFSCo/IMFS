@@ -8,17 +8,17 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                  <form string="Create RFQ">
-                     <separator string="Existing RFQ to update:"/>
+                     <!-- <separator string="Existing RFQ to update:"/>
                      <newline/>
                      <group>
                         <field name="purchase_order_id"/>
                      </group>
-                     <newline/>
+                     <newline/> -->
                      <separator
                              string="New PO details:"/>
                      <newline/>
                      <group>
-                         <field name="supplier_id"/>
+                         <field name="supplier_id" string="Request From" readonly="1"/>
                      </group>
                      <newline/>
                      <group>

@@ -1,4 +1,65 @@
 <odoo>
+
+	<record id="purchase.purchase_form_action" model="ir.actions.act_window">
+        <field name="name">Purchase Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,kanban,form,pivot,graph,calendar,activity</field>
+        <field name="domain" >[('state','in',('purchase','done','approval1','approval2','approval3','approval4'))]</field>
+    </record>
+
+	<record model="ir.ui.view" id="_inherit_view_purchase_order_search">
+		<field name="name">inherit.report.purchase.order.search</field>
+		<field name="model">purchase.report</field>
+		<field name="inherit_id" ref="purchase.view_purchase_order_search"/>
+		<field name="arch" type="xml">
+
+			<xpath expr="//field[@name='product_id']" position="after">
+				<field name="pr_reference" filter_domain="[('pr_reference','ilike',self)]"/>
+			</xpath>
+
+			<xpath expr="//group//filter[@name='group_partner_id']" position="after">
+				<filter string="PR Reference" name="pr_reference" domain="[]" context="{'group_by' : 'pr_reference'}" />
+			</xpath>
+
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_request_for_purchase_form">
+		<field name="name">purchase.order.form.sit</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+<!--
+				<xpath expr="//page[@name='purchase_delivery_invoice']/group/group[2]/field[@name='payment_term_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+-->
+				<xpath expr="//field[@name='partner_id']" position="attributes">
+					<attribute name="string">Request From</attribute>
+				</xpath>
+				<xpath expr="//field[@name='partner_ref']" position="attributes">
+					<attribute name="string">RFQ#</attribute>
+				</xpath>
+				<xpath expr="//field[@name='date_order']" position="after">
+					<field name="payment_term_id" attrs="{'readonly': ['|', ('invoice_status','=', 'invoiced'), ('state', '=', 'done')]}"/>
+				</xpath>
+
+			</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_request_for_purchase_form_req_inherit">
+		<field name="name">purchase.order.form.sit.requisition</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase_requisition.purchase_order_form_inherit"/>
+		<field name="arch" type="xml">
+			
+			<field name="requisition_id" position="attributes">
+				<attribute name="string">Open Order</attribute>
+			</field>
+		</field>
+	</record>
+
 	<record model="ir.ui.view" id="view_purchase_request_form">
 		<field name="name">purchase.request.form</field>
 		<field name="model">purchase.request</field>
@@ -9,20 +70,27 @@
 						states="to_approve,approved,rejected,done" string="Reset"
 						type="object"
 						groups="purchase_request.group_purchase_request_manager" />
-					<button name="button_to_approve" states="draft"
-						string="Request approval" type="object" class="oe_highlight" />
-					<button name="button_approved" states="to_approve"
-						string="Approve" type="object" class="oe_highlight"
+					
+
+					<button name="submit_purchase_request" string="Submit" type="object" states="draft" class="oe_highlight" groups="base.group_user"/>
+
+					<button name="button_to_approve" states="submit" string="Request approval" type="object" class="oe_highlight" />
+					
+                    <button name="button_approval_one" states="to_approve" class="oe_highlight" string="DPD-OP Approval" type="object" groups="purchase_request.allow_approve_1"/>
+                    
+                    <button name="button_approval_two" states="approval1" class="oe_highlight" string="FD Approval" type="object" groups="purchase_request.allow_approve_2"/>
+                    
+                    <button name="button_approval_three" states="approval2" class="oe_highlight" string="PD Approval" type="object" groups="purchase_request.allow_approve_3"/>
+                    
+					<button name="button_approved" states="approval3" string="Approve" type="object" class="oe_highlight" groups="purchase_request.group_purchase_request_manager" />
+					
+                    <button name="%(wizard_reject_reason)d" states="to_approve,approval1,approval2,approval3"
+						string="Reject" type="action"
 						groups="purchase_request.group_purchase_request_manager" />
-					<button name="button_done" states="approved" string="Done"
-						type="object" class="oe_highlight"
-						groups="purchase_request.group_purchase_request_manager" />
-					<button name="button_rejected" states="to_approve,approved"
-						string="Reject" type="object"
-						groups="purchase_request.group_purchase_request_manager" />
+
+
 					<field name="state" widget="statusbar"
-						statusbar_visible="draft,to_approve,approved,done,rejected"
-						statusbar_colors='{"approved":"blue"}' />
+						statusbar_visible="draft,submit,to_approve,approval1,approval2,approval3,approved,rejected,cancel" statusbar_colors='{"approved":"blue"}'/>
 				</header>
 				<sheet>
 					<div class="oe_button_box" name="button_box">
@@ -113,7 +181,11 @@
 								</form>
 							</field>
 						</page>
+						<page string="Notes">
+						<field name="reject_reason"/>
+					</page>
 					</notebook>
+
 				</sheet>
 				<div class="oe_chatter">
 					<field name="message_follower_ids" widget="mail_followers" />
@@ -299,5 +371,10 @@
 	<menuitem id="menu_purchase_request_line_act" sequence="20"
 		parent="menu_purchase_request"
 		action="purchase_request_line_form_action" />
+
+	<menuitem name="Procurement"
+            id="purchase.menu_purchase_root"
+            web_icon="purchase,static/description/icon.png"
+            sequence="25"/>
 
 </odoo>

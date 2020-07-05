@@ -97,6 +97,7 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
                 _('Enter a supplier.'))
         supplier = self.supplier_id
         data = {
+            'name':self.env['ir.sequence'].next_by_code('request.for.purchase'),
             'origin': source,
             'partner_id': self.supplier_id.id,
             'fiscal_position_id': supplier.property_account_position_id and
