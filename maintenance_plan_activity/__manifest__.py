@@ -9,9 +9,15 @@
         consequence of the plan itself.""",
     'version': '12.0.1.0.0',
     'license': 'AGPL-3',
+<<<<<<< HEAD
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
+=======
+    'author': 'Eficent Business and IT Consulting Services S.L.,'
+              'Odoo Community Association (OCA)',
+    'website': 'https://www.github.com/OCA/maintenance',
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
     'depends': [
         'maintenance_plan'
     ],

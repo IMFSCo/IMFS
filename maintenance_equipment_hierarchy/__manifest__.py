@@ -4,9 +4,15 @@
 {
     'name': 'Maintenance Equipments Hierarchy',
     'summary': 'Manage equipment hierarchy',
+<<<<<<< HEAD
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
+=======
+    'author': 'ForgeFlow, Odoo Community Association (OCA)',
+    'website': 'http://github.com/OCA/maintenance',
+    'category': 'Equipments, Assets, Internal Hardware, Allocation Tracking',
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
     'version': '12.0.1.0.0',
     'license': 'LGPL-3',
     'depends': [

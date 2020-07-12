@@ -386,6 +386,13 @@ class InheritPurchase(models.Model):
     reject_reason = fields.Text(string="Reject Reason",track_visibility='always')
     
     submit_email = fields.Char()
+<<<<<<< HEAD
+=======
+    first_email = fields.Char()
+    second_email = fields.Char()
+    third_email = fields.Char()
+    fourth_email = fields.Char()
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
 
     state = fields.Selection([
         ('draft', 'RFQ'),
@@ -393,6 +400,13 @@ class InheritPurchase(models.Model):
         ('sent', 'RFQ Sent'),
         ('to approve', 'To Approve'),
         ('purchase', 'Purchase Order'),
+<<<<<<< HEAD
+=======
+        ('approval1','PM Approval'),
+        ('approval2','DPD-OP Approval'),
+        ('approval3','FD Approval'),
+        ('approval4','PD Approval'),
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
         ('reject','Rejected'),
         ('done', 'Confirm'),
         ('cancel', 'Cancelled')
@@ -466,7 +480,11 @@ class InheritPurchase(models.Model):
     @api.multi
     def button_confirm_old(self):
         for order in self:
+<<<<<<< HEAD
             if order.state not in ['draft', 'sent']:
+=======
+            if order.state not in ['draft', 'sent','approval4']:
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
                 continue
             order._add_supplier_to_product()
             # Deal with double validation process
@@ -485,6 +503,25 @@ class InheritPurchase(models.Model):
         return self.write({'state':'submit','submit_email':self.env.user.email_formatted})
 
     @api.multi
+<<<<<<< HEAD
+=======
+    def button_approval_one(self):
+        return self.write({'state':'approval1','first_email':self.create_uid.email_formatted})
+
+    @api.multi
+    def button_approval_two(self):
+        return self.write({'state':'approval2','second_email':self.create_uid.email_formatted})
+
+    @api.multi
+    def button_approval_three(self):
+        return self.write({'state':'approval3','third_email':self.create_uid.email_formatted})
+
+    @api.multi
+    def button_approval_four(self):
+        return self.write({'state':'approval4','fourth_email':self.create_uid.email_formatted})
+
+    @api.multi
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
     def button_change_state_to_confirm(self):
         self.name = self.env['ir.sequence'].next_by_code('purchase.order')
         self.write({'state': 'purchase'})
@@ -492,7 +529,11 @@ class InheritPurchase(models.Model):
     @api.multi
     def button_change_state_to_rejected(self):
       for order in self:
+<<<<<<< HEAD
         if order.state not in ['submit','purchase']:
+=======
+        if order.state not in ['submit','purchase','approval1','approval2','approval3','approval4']:
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
             continue
         else:
           if not order.reject_reason:
@@ -501,12 +542,27 @@ class InheritPurchase(models.Model):
           else:
             if self.state == 'submit':
               emails = self.submit_email
+<<<<<<< HEAD
+=======
+            if self.state == 'approval1':
+              emails = self.submit_email,self.first_email
+            if self.state == 'approval2':
+              emails = self.submit_email,self.first_email,self.second_email
+            if self.state == 'approval3':
+              emails = self.submit_email,self.first_email,self.second_email,self.third_email
+            if self.state == 'approval4':
+              emails = self.submit_email,self.first_email,self.second_email,self.third_email,self.fourth_email
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
 
             template_id = self.env.ref('purchase_request.email_template_purchase_order_reject').id
             template = self.env['mail.template'].browse(template_id)
             template.write({'email_to': emails})
             template.send_mail(self.id,force_send=True)
+<<<<<<< HEAD
             self.write({'reject_reason':'','state':'reject'})
+=======
+            self.write({'reject_reason':'','state':'reject','first_email':'','second_email':'','third_email':'','fourth_email':''})
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
 
     @api.multi
     def button_change_state_to_draft(self):
@@ -514,7 +570,11 @@ class InheritPurchase(models.Model):
         if order.state not in ['reject']:
             continue
         else:
+<<<<<<< HEAD
           self.write({'state':'draft'})
+=======
+          self.write({'state':'draft','first_email':'','second_email':'','third_email':'','fourth_email':''})
+>>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
 
 
 class InheritEmail(models.TransientModel):
