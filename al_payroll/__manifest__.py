@@ -2,13 +2,10 @@
 {
     'name': 'Payroll Customization',
     'summary': """Payroll module related customizations""",
-<<<<<<< HEAD
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
-=======
     'author': "SIT & think digital",
     'website': "http://sitco.odoo.com/",
->>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
     'category': 'Custom',
     'version': '12.0.1',
 
