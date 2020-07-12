@@ -13,16 +13,6 @@
     'live_test_url': 'https://www.youtube.com/watch?v=4zYPuB7_XWU&t=9s',
     'license': 'Other proprietary',
     'summary': 'This module allow HR department to manage loan of employees.',
-    'category': 'Human Resources',
-    'depends' : ['account', 'hr', 'hr_payroll'],
-    'author': 'Probuse Consulting Service Pvt. Ltd.',
-    'images': ['static/description/im2.jpg'],
-    'price': 99.0,
-    'currency': 'EUR',
-    'live_test_url': 'https://www.youtube.com/watch?v=4zYPuB7_XWU&t=9s',
-    'license': 'Other proprietary',
-    'summary': 'This module allow HR department to manage loan of employees.',
-    'website': 'www.probuse.com',
     'description': ''' 
 loan detail report should be verify
 Loan management Integrated with payroll

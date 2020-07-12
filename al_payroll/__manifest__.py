@@ -4,8 +4,6 @@
     'summary': """Payroll module related customizations""",
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
-    'author': "SIT & think digital",
-    'website': "http://sitco.odoo.com/",
     'category': 'Custom',
     'version': '12.0.1',
 

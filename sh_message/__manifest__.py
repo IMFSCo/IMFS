@@ -5,9 +5,6 @@
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-    "author" : "Softhealer Technologies",
-    "website": "https://www.softhealer.com",
-    "category": "Extra Tools",
     "summary": """
         This module is useful to crate custom message/pop up wizard.
         You can create Success, warnings, alert message box wizard by the few line of code.

@@ -12,9 +12,6 @@
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-    'author': 'Eficent Business and IT Consulting Services S.L.,'
-              'Odoo Community Association (OCA)',
-    'website': 'https://www.github.com/OCA/maintenance',
     'depends': [
         'maintenance_plan'
     ],

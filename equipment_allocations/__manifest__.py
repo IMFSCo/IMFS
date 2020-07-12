@@ -8,12 +8,6 @@
   "author"               :  "Muhammad Faizan",
   "license"              :  "Other proprietary",
   "website"              :  "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
-  "category"             :  "Human Resources",
-  "version"              :  "1.0.1",
-  "sequence"             :  1,
-  "author"               :  "Webkul Software Pvt. Ltd.",
-  "license"              :  "Other proprietary",
-  "website"              :  "https://store.webkul.com/Odoo-Equipment-Allocations.html",
   "description"          :  """Odoo Equipment Allocations
 Manage office equipment in odoo
 Maintain equipment records in Odoo

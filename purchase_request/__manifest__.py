@@ -7,12 +7,6 @@
     "summary": "Use this module to have notification of requirements of "
                "materials and/or external services and keep track of such "
                "requirements",
-    "author": "SIT & think digital",
-    "version": "12.0.1",
-    "summary": "Use this module to have notification of requirements of "
-               "materials and/or external services and keep track of such "
-               "requirements",
-    "category": "Purchase Management",
     "depends": ['mail',
         "purchase",
         "product","purchase_requisition"

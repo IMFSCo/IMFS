@@ -32,11 +32,6 @@
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-    'category': 'Generic Modules/Human Resources',
-    'author': "Cybrosys Techno Solutions",
-    'company': 'Cybrosys Techno Solutions',
-    'maintainer': 'Cybrosys Techno Solutions',
-    'website': "https://www.openhrms.com",
     'depends': [
         'hr_payroll', 'hr', 'account', 'hr_contract',
     ],

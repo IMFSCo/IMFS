@@ -10,8 +10,6 @@
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-    'author': 'Creu Blanca,Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/maintenance',
     'depends': [
         'maintenance'
     ],

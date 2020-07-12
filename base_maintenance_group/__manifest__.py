@@ -7,9 +7,6 @@
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-    'author': 'Onestein, Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/maintenance',
-    'category': 'Maintenance',
     'version': '12.0.1.0.0',
     'license': 'AGPL-3',
     'depends': [

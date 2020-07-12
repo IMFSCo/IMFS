@@ -7,11 +7,6 @@
  'category': 'Custom',
  'version': '12.0.3.1.1',
  'license': 'AGPL-3',
- 'version': '12.0.3.1.1',
- 'author': 'Camptocamp SA, Eficent, Odoo Community Association (OCA)',
- 'license': 'AGPL-3',
- 'category': 'Maintenance',
- 'website': 'https://github.com/OCA/maintenance',
  'images': [],
  'depends': [
      'maintenance',
