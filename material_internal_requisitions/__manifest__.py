@@ -2,15 +2,12 @@
     'name': 'Product/Material Internal Requisitions by Employees/Users',
     'version': '12.0.1',
     'summary': """This module allow your employees/users to create Internal Requisitions.""",
-<<<<<<< HEAD
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-=======
     'author': 'SIT & think digital',
     'website': 'http://sitco.odoo.com',
     'category': 'Warehouse',
->>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
     'depends': ['stock','product','hr','purchase_requisition','purchase_request','sh_message'],
     'data':[
         'security/ir.model.access.csv',

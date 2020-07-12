@@ -9,18 +9,15 @@
         
     """,
 
-<<<<<<< HEAD
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-=======
     'author': "Ramadan Khalil",
     'website': "rkhalil1990@gmail.com",
     'price': 99,
     'currency': 'EUR',
 
     'category': 'hr',
->>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
     'version': '0.2',
     'images': ['static/description/bannar.jpg'],
 

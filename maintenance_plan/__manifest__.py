@@ -2,19 +2,16 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {'name': 'Maintenance Plan',
  'summary': 'Extends preventive maintenance planning',
-<<<<<<< HEAD
  'author': "Muhammad Faizan",
  'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
  'category': 'Custom',
  'version': '12.0.3.1.1',
  'license': 'AGPL-3',
-=======
  'version': '12.0.3.1.1',
  'author': 'Camptocamp SA, Eficent, Odoo Community Association (OCA)',
  'license': 'AGPL-3',
  'category': 'Maintenance',
  'website': 'https://github.com/OCA/maintenance',
->>>>>>> e97b44b4024a274708fe25810a6af1e1ef67e33e
  'images': [],
  'depends': [
      'maintenance',
