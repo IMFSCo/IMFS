@@ -2,12 +2,12 @@
 {
   "name"                 :  "Equipment Allocations",
   "summary"              :  "The module provides a way to manage workplace equipments. The user can enter the repective request for an equipment allocation to an employee.",
-  "category"             :  "Human Resources",
+  "category"             :  "Custom",
   "version"              :  "1.0.1",
   "sequence"             :  1,
-  "author"               :  "Webkul Software Pvt. Ltd.",
+  "author"               :  "Muhammad Faizan",
   "license"              :  "Other proprietary",
-  "website"              :  "https://store.webkul.com/Odoo-Equipment-Allocations.html",
+  "website"              :  "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
   "description"          :  """Odoo Equipment Allocations
 Manage office equipment in odoo
 Maintain equipment records in Odoo

@@ -5,16 +5,14 @@
 {
     'name' : 'Employee Loan Management',
     'version' : '1.1',
-    'category': 'Human Resources',
+    'author': "Muhammad Faizan",
+    'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
+    'category': 'Custom',
     'depends' : ['account', 'hr', 'hr_payroll'],
-    'author': 'Probuse Consulting Service Pvt. Ltd.',
     'images': ['static/description/im2.jpg'],
-    'price': 99.0,
-    'currency': 'EUR',
     'live_test_url': 'https://www.youtube.com/watch?v=4zYPuB7_XWU&t=9s',
     'license': 'Other proprietary',
     'summary': 'This module allow HR department to manage loan of employees.',
-    'website': 'www.probuse.com',
     'description': ''' 
 loan detail report should be verify
 Loan management Integrated with payroll

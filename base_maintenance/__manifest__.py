@@ -4,11 +4,9 @@
 {
     "name": "Base Maintenance",
     "version": "11.0.1.0.0",
-    "author": "Eficent, "
-              "Odoo Community Association (OCA)",
-    "development_status": "Beta",
-    "website": "https://www.github.com/OCA/maintenance",
-    "category": "Maintenance",
+    'author': "Muhammad Faizan",
+    'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
+    'category': 'Custom',
     "license": "AGPL-3",
     "depends": [
         "maintenance",

@@ -3,9 +3,9 @@
 {
     'name': 'Maintenance Equipment Status',
     'version': '11.0.1.0.0',
-    'category': '',
-    'author': 'Eficent, Odoo Community Association (OCA)',
-    'website': 'http://github.com/OCA/maintenance',
+    'author': "Muhammad Faizan",
+    'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
+    'category': 'Custom',
     'license': 'LGPL-3',
     'depends': [
         'maintenance',
