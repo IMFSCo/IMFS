@@ -21,6 +21,7 @@ class SalaryRuleInput(models.Model):
                 state = adv_obj.state
                 amount = adv_obj.advance
                 for result in res:
-                    if state == 'approve' and amount != 0 and result.get('code') == 'SAR':
+                    if state == 'approve' and amount != 0:
                         result['amount'] = amount
+                        result['rules'] = self.env['hr.salary.rule'].search([('code','=','SAR')],limit=1)
         return res

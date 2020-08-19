@@ -16,29 +16,29 @@ class HrPayslip(models.Model):
 
     journal_id = fields.Many2one('account.journal', string='Journals', required=True, default=_default_journal)
     basic = fields.Monetary(string="Basic", digits=(16, 2), related='contract_id.wage', store=True)
-    housing_allowance = fields.Monetary(string="Housing Allowance", compute='salary_computation_ag', store=True)
-    food_allowance = fields.Monetary(string="Food Allowance", compute='salary_computation_ag', store=True)
-    os_allowance = fields.Monetary(string="OS Allowance", compute='salary_computation_ag', store=True)
-    transport_allowance = fields.Monetary(string="Transport Allowance", compute='salary_computation_ag', store=True)
-    other_allowance = fields.Monetary(string="Other Allowance", compute='salary_computation_ag', store=True)
-    os_other_allowance = fields.Monetary(string="OS Other Allowance", compute='salary_computation_ag', store=True)
-    incentive_allowance = fields.Monetary(string="Incentive Allowance", compute='salary_computation_ag', store=True)
-    os_incentive_allowance = fields.Monetary(string="OS Incentive", compute='salary_computation_ag', store=True)
-    over_time = fields.Monetary(string="Overtime Allowance", compute='salary_computation_ag', store=True)
-    os_over_time = fields.Monetary(string="OS Overtime", compute='salary_computation_ag', store=True)
-    gosi_alloance = fields.Monetary(string="GOSI Allowance", compute='salary_computation_ag', store=True)
+    housing_allowance = fields.Monetary(string="Housing Allowance", store=True)
+    food_allowance = fields.Monetary(string="Food Allowance", store=True)
+    os_allowance = fields.Monetary(string="OS Allowance", store=True)
+    transport_allowance = fields.Monetary(string="Transport Allowance", store=True)
+    other_allowance = fields.Monetary(string="Other Allowance", store=True)
+    os_other_allowance = fields.Monetary(string="OS Other Allowance", store=True)
+    incentive_allowance = fields.Monetary(string="Incentive Allowance", store=True)
+    os_incentive_allowance = fields.Monetary(string="OS Incentive", store=True)
+    over_time = fields.Monetary(string="Overtime Allowance", store=True)
+    os_over_time = fields.Monetary(string="OS Overtime", store=True)
+    gosi_alloance = fields.Monetary(string="GOSI Allowance", store=True)
     currency_id = fields.Many2one(string="Currency", related='company_id.currency_id', readonly=True)
-    total_salary = fields.Monetary(string="Total Salary", compute='salary_computation_ag', store=True)
-    gross_tree = fields.Monetary(string="Gross", compute='salary_computation_ag', store=True)
-    amount_gosi_ksa = fields.Monetary(string="GOSI Deduction", compute='salary_computation_ag', store=True)
-    amount_comp_gosi_ksa = fields.Monetary(string="GOSI Company Share", compute='salary_computation_ag', store=True)
-    penalty_tree = fields.Monetary(string="Penalty Deduction", compute='salary_computation_ag', store=True)
-    other_tree = fields.Monetary(string="Other Deductions", compute='salary_computation_ag', store=True)
-    absent = fields.Monetary(string="Absent Deduction", compute='salary_computation_ag', store=True)
-    loan = fields.Monetary(string="Loan", compute='salary_computation_ag', store=True)
-    total_ded = fields.Monetary(string="Total Deduction", compute='salary_computation_ag', store=True)
-    net_salary = fields.Monetary(string="NET", compute='salary_computation_ag', store=True)
-    agency_cost = fields.Monetary(string="Agency Cost", compute='salary_computation_ag', store=True)
+    total_salary = fields.Monetary(string="Total Salary", store=True)
+    gross_tree = fields.Monetary(string="Gross", store=True)
+    amount_gosi_ksa = fields.Monetary(string="GOSI Deduction", store=True)
+    amount_comp_gosi_ksa = fields.Monetary(string="GOSI Company Share", store=True)
+    penalty_tree = fields.Monetary(string="Penalty Deduction", store=True)
+    other_tree = fields.Monetary(string="Other Deductions", store=True)
+    absent = fields.Monetary(string="Absent Deduction", store=True)
+    loan = fields.Monetary(string="Loan", store=True)
+    total_ded = fields.Monetary(string="Total Deduction", store=True)
+    net_salary = fields.Monetary(string="NET", store=True)
+    agency_cost = fields.Monetary(string="Agency Cost", store=True)
     gosi_no = fields.Char(string='GOSI Reference', store=True)
     coach_id = fields.Many2one(string='Coach', related='employee_id.coach_id', store=True)
     nationality_id = fields.Char(string='National ID', related='employee_id.identification_id', store=True)
@@ -46,12 +46,12 @@ class HrPayslip(models.Model):
     bank_code_id = fields.Char(string='Bank Code', related='employee_id.bank_account_id.bank_code', store=True)
     iban_id = fields.Char(string='IBAN', related='employee_id.bank_account_id.acc_number', store=True)
     bank_other_allowance = fields.Float(string="Other Allowance", store=True)
-    bank_payslip_allowance = fields.Monetary(string="Any Other Allowance", compute='salary_computation_ag', store=True)
+    bank_payslip_allowance = fields.Monetary(string="Any Other Allowance", store=True)
     bank_hra = fields.Float(string="HRA", store=True)
     bank_days = fields.Float(string="Days", related='contract_id.bank_days', store=True)
     bank_total_salary = fields.Float(string="Total Salary", related='contract_id.bank_total_salary', store=True)
-    late_in = fields.Monetary(string="Late In", compute='salary_computation_ag', store=True)
-    difference_time = fields.Monetary(string="Difference Time", compute='salary_computation_ag', store=True)
+    late_in = fields.Monetary(string="Late In", store=True)
+    difference_time = fields.Monetary(string="Difference Time", store=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('hrapproval', 'HR Approved'),
@@ -80,20 +80,19 @@ class HrPayslip(models.Model):
 
     @api.multi
     def action_deductions_sumup(self):
-        if not self.input_line_ids:
-            deduction_rec = self.env['hr.deductions'].search(
-                [('employee_id', '=', self.employee_id.id), ('date', '>=', self.date_from),
-                 ('date', '<=', self.date_to), ('state', '=', 'approve')])
-            if deduction_rec:
-                total_deduction_amount = 0.0
-                rec = []
-                contract_obj = self.env['hr.contract'].search([('employee_id', '=', self.employee_id.id)], limit=1)
-                for record in deduction_rec:
-                    total_deduction_amount += record.total_amount
-                rec.append((0, 0, {'code': deduction_rec[0].rule_id.code,'name':'Deduction', 'rules':deduction_rec[0].rule_id.id,
-                                   'sequence': deduction_rec[0].rule_id.sequence, 'amount': total_deduction_amount,
-                                   'contract_id': contract_obj[0].id}))
-                return self.write({'input_line_ids': rec})
+        deduction_rec = self.env['hr.deductions'].search(
+            [('employee_id', '=', self.employee_id.id), ('date', '>=', self.date_from),
+            ('date', '<=', self.date_to), ('state', '=', 'approve')])
+        if deduction_rec:
+            total_deduction_amount = 0.0
+            rec = []
+            contract_obj = self.env['hr.contract'].search([('employee_id', '=', self.employee_id.id)], limit=1)
+            for record in deduction_rec:
+                total_deduction_amount += record.total_amount
+            rec.append((0, 0, {'code': deduction_rec[0].rule_id.code,'name':'Deduction', 'rules':deduction_rec[0].rule_id.id,
+                                'sequence': deduction_rec[0].rule_id.sequence, 'amount': total_deduction_amount,
+                                'contract_id': contract_obj[0].id}))
+            return self.write({'input_line_ids': rec})
 
     @api.multi
     def action_payslip_hrapproval(self):
@@ -514,11 +513,11 @@ class HrPayslip(models.Model):
     basic = fields.Monetary(string="Basic", digits=(16, 2), related='contract_id.wage')
     currency_id = fields.Many2one(string="Currency", related='company_id.currency_id', readonly=True)
     total_salary = fields.Float(string="Total Salary", compute='_onchange_contract_id')
-    incentive_allowance = fields.Float(string="Incentive Allowance", compute='salary_computation_ag')
-    absent = fields.Float(string="Absent Deduction", compute='salary_computation_ag')
-    total_ded = fields.Float(string="Total Deduction", compute='salary_computation_ag')
-    net_salary = fields.Float(string="NET", compute='salary_computation_ag')
-    over_time = fields.Float(string="Overtime Allowance", compute='salary_computation_ag')
+    incentive_allowance = fields.Float(string="Incentive Allowance")
+    absent = fields.Float(string="Absent Deduction")
+    total_ded = fields.Float(string="Total Deduction")
+    net_salary = fields.Float(string="NET")
+    over_time = fields.Float(string="Overtime Allowance")
     coach_id = fields.Many2one(string='Coach', related='employee_id.coach_id', store=True)
     bank_other_allowance = fields.Float(string="Other Allowance", default=0)
     bank_days = fields.Float(string="Days", default=30)
