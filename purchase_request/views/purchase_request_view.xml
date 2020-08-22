@@ -5,7 +5,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">purchase.order</field>
         <field name="view_mode">tree,kanban,form,pivot,graph,calendar,activity</field>
-        <field name="domain" >[('state','in',('purchase','done','approval1','approval2','approval3','approval4'))]</field>
+        <field name="domain" >[('state','in',('purchase','done'))]</field>
     </record>
 
 	<record model="ir.ui.view" id="_inherit_view_purchase_order_search">
@@ -67,30 +67,22 @@
 			<form string="Purchase Request">
 				<header>
 					<button name="button_draft"
-						states="to_approve,approved,rejected,done" string="Reset"
+						states="approved,rejected,done" string="Reset"
 						type="object"
 						groups="purchase_request.group_purchase_request_manager" />
 					
 
 					<button name="submit_purchase_request" string="Submit" type="object" states="draft" class="oe_highlight" groups="base.group_user"/>
 
-					<button name="button_to_approve" states="submit" string="Request approval" type="object" class="oe_highlight" />
+					<button name="button_approved" states="submit" string="Approve" type="object" class="oe_highlight"  groups="purchase_request.group_purchase_request_manager"/>
 					
-                    <button name="button_approval_one" states="to_approve" class="oe_highlight" string="DPD-OP Approval" type="object" groups="purchase_request.allow_approve_1"/>
-                    
-                    <button name="button_approval_two" states="approval1" class="oe_highlight" string="FD Approval" type="object" groups="purchase_request.allow_approve_2"/>
-                    
-                    <button name="button_approval_three" states="approval2" class="oe_highlight" string="PD Approval" type="object" groups="purchase_request.allow_approve_3"/>
-                    
-					<button name="button_approved" states="approval3" string="Approve" type="object" class="oe_highlight" groups="purchase_request.group_purchase_request_manager" />
+					<button name="button_cancel" states="draft,submit" string="Cancel" type="object" groups="purchase_request.group_purchase_request_manager"/>					
 					
-                    <button name="%(wizard_reject_reason)d" states="to_approve,approval1,approval2,approval3"
-						string="Reject" type="action"
-						groups="purchase_request.group_purchase_request_manager" />
+<!--                    <button name="%(wizard_reject_reason)d" states="draft,submit" string="Reject" type="action"	groups="purchase_request.group_purchase_request_manager" />
 
-
-					<field name="state" widget="statusbar"
-						statusbar_visible="draft,submit,to_approve,approval1,approval2,approval3,approved,rejected,cancel" statusbar_colors='{"approved":"blue"}'/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,submit,approved,rejected,cancel" statusbar_colors='{"approved":"blue"}'/>
+-->
+					<field name="state" widget="statusbar" statusbar_visible="draft,submit,approved,cancel" statusbar_colors='{"approved":"blue"}'/>
 				</header>
 				<sheet>
 					<div class="oe_button_box" name="button_box">
@@ -200,7 +192,7 @@
 		<field name="model">purchase.request</field>
 		<field name="arch" type="xml">
 			<tree decoration-bf="message_needaction==True"
-				decoration-info="state in ('draft','to_approve')"
+				decoration-info="state in ('draft','submit')"
 				decoration-muted="state in ('rejected')" string="Purchase Request">
 				<field name="message_needaction" invisible="1" />
 				<field name="name" />
@@ -232,8 +224,7 @@
 		<field name="name">purchase.request.line.tree</field>
 		<field name="model">purchase.request.line</field>
 		<field name="arch" type="xml">
-			<tree string="Purchase Request Lines" create="false"
-				decoration-muted="cancelled == True">
+			<tree string="Purchase Request Lines" create="false" decoration-muted="cancelled == True">
 				<field name="request_id" />
 				<field name="request_state" />
 				<field name="requested_by" />
@@ -245,7 +236,7 @@
 				<field name="product_uom_id" groups="product.group_uom" />
 				<field name="analytic_account_id"
 					groups="analytic.group_analytic_accounting" />
-				<field name="supplier_id" />
+<!--				<field name="supplier_id" />    -->
 				<field name="cancelled" invisible="1" />
 			</tree>
 		</field>
@@ -336,22 +327,18 @@
 		<field name="view_mode">tree,form</field>
 	</record>
 
-	<record id="purchase_request_line_form_action_tree"
-		model="ir.actions.act_window.view">
+	<record id="purchase_request_line_form_action_tree"	model="ir.actions.act_window.view">
 		<field eval="1" name="sequence" />
 		<field name="view_mode">tree</field>
 		<field name="view_id" ref="purchase_request_line_tree" />
-		<field name="act_window_id"
-			ref="purchase_request_line_form_action" />
+		<field name="act_window_id"	ref="purchase_request_line_form_action" />
 	</record>
 
-	<record id="purchase_request_line_form_action_form2"
-		model="ir.actions.act_window.view">
+	<record id="purchase_request_line_form_action_form2" model="ir.actions.act_window.view">
 		<field eval="2" name="sequence" />
 		<field name="view_mode">form</field>
 		<field name="view_id" ref="purchase_request_line_form" />
-		<field name="act_window_id"
-			ref="purchase_request_line_form_action" />
+		<field name="act_window_id"	ref="purchase_request_line_form_action" />
 	</record>
 
 	<menuitem action="purchase_request_line_form_action"
@@ -366,8 +353,10 @@
 	<menuitem id="menu_purchase_request" name="Purchase Requests"
 		parent="parent_menu_purchase_request"
 		groups="group_purchase_request_user,group_purchase_request_manager" />
+
 	<menuitem id="menu_purchase_request_act" sequence="10"
 		parent="menu_purchase_request" action="purchase_request_form_action" />
+
 	<menuitem id="menu_purchase_request_line_act" sequence="20"
 		parent="menu_purchase_request"
 		action="purchase_request_line_form_action" />

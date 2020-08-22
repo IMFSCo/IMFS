@@ -105,6 +105,7 @@ class InternalRequisition(models.Model):
         readonly=True,
         copy=False,
     )
+    mo_reference = fields.Char('MO Reference')
     company_id = fields.Many2one(
         'res.company',
         string='Company',

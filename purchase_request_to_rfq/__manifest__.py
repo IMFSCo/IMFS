@@ -1,9 +1,9 @@
 {
     "name": "Purchase Request to RFQ",
+    "author": "SIT & think digital",
     "version": "12.0.1",
-    'author': "Muhammad Faizan",
-    'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
-    'category': 'Custom',
+    "website": "http://sitco.odoo.com",
+    "category": "Purchase Management.",
     "depends": [
         "purchase_request",
         "purchase"],

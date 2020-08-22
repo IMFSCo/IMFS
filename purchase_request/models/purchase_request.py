@@ -17,7 +17,6 @@ _STATES = [
 ]
 
 
-
 class PurchaseRequest(models.Model):
 
     _name = 'purchase.request'
@@ -54,7 +53,7 @@ class PurchaseRequest(models.Model):
     @api.depends('state')
     def _compute_is_editable(self):
         for rec in self:
-            if rec.state in ('to_approve', 'approved', 'rejected', 'done'):
+            if rec.state in ('approved', 'rejected', 'done'):
                 rec.is_editable = False
             else:
                 rec.is_editable = True
@@ -62,9 +61,7 @@ class PurchaseRequest(models.Model):
     @api.multi
     def _track_subtype(self, init_values):
         for rec in self:
-            if 'state' in init_values and rec.state == 'to_approve':
-                return 'purchase_request.mt_request_to_approve'
-            elif 'state' in init_values and rec.state == 'approved':
+            if 'state' in init_values and rec.state == 'approved':
                 return 'purchase_request.mt_request_approved'
             elif 'state' in init_values and rec.state == 'rejected':
                 return 'purchase_request.mt_request_rejected'
@@ -107,10 +104,6 @@ class PurchaseRequest(models.Model):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('submit','Submitted'),
-        ('to_approve', 'To Approve'),
-        ('approval1','DPD-OP Approval'),
-        ('approval2','FD Approval'),
-        ('approval3','PD Approval'),
         ('approved', 'Approved'),
         ('rejected','Rejected'),
         ('cancel', 'Cancelled')
@@ -140,7 +133,7 @@ class PurchaseRequest(models.Model):
     @api.multi
     def button_change_state_to_rejected(self):
       for order in self:
-        if order.state not in ['submit','approved','approval1','approval2','approval3','approval4']:
+        if order.state not in ['submit','approved']:
             continue
         else:
           if not order.reject_reason:
@@ -149,36 +142,18 @@ class PurchaseRequest(models.Model):
           else:
             if self.state == 'submit':
               emails = self.submit_email
-            if self.state == 'approval1':
-              emails = self.submit_email,self.first_email
-            if self.state == 'approval2':
-              emails = self.submit_email,self.first_email,self.second_email
-            if self.state == 'approval3':
-              emails = self.submit_email,self.first_email,self.second_email,self.third_email
 
             template_id = self.env.ref('purchase_request.email_template_purchase_order_reject').id
             template = self.env['mail.template'].browse(template_id)
             template.write({'email_to': emails})
             template.send_mail(self.id,force_send=True)
-            self.write({'reject_reason':'','state':'rejected','submit_email':'','first_email':'','second_email':'','third_email':'','fourth_email':''})
+            self.write({'reject_reason':'','state':'rejected','submit_email':''})
 
 
 
     @api.multi
     def submit_purchase_request(self):
         return self.write({'state':'submit','submit_email':self.env.user.email_formatted})
-
-    @api.multi
-    def button_approval_one(self):
-        return self.write({'state':'approval1','first_email':self.env.user.email_formatted})
-
-    @api.multi
-    def button_approval_two(self):
-        return self.write({'state':'approval2','second_email':self.env.user.email_formatted})
-
-    @api.multi
-    def button_approval_three(self):
-        return self.write({'state':'approval3','third_email':self.env.user.email_formatted})
 
     @api.depends('line_ids')
     def _compute_line_count(self):
@@ -230,13 +205,12 @@ class PurchaseRequest(models.Model):
         return self.write({'state': 'draft'})
 
     @api.multi
-    def button_to_approve(self):
-        self.to_approve_allowed_check()
-        return self.write({'state': 'to_approve'})
-
-    @api.multi
     def button_approved(self):
         return self.write({'state': 'approved'})
+        
+    @api.multi
+    def button_cancel(self):
+        return self.write({'state': 'cancel'})        
 
     @api.multi
     def button_rejected(self):
@@ -280,12 +254,6 @@ class PurchaseRequestLine(models.Model):
                 rec.is_editable = False
             else:
                 rec.is_editable = True
-
-    @api.multi
-    def _compute_supplier_id(self):
-        for rec in self:
-            rec.supplier_id = self.env['res.partner'].search([('name', 'ilike', 'INTERNATIONAL MEDICAL FURNITURE & SUPPLIES')])
-
 
     product_id = fields.Many2one(
         'product.product', 'Product',
@@ -340,8 +308,7 @@ class PurchaseRequestLine(models.Model):
         help="If event is created, the status is 'Draft'. If event is confirmed for the particular dates the status is set to 'Confirmed'. If the event is over, the status is set to 'Done'. If event is cancelled the status is set to 'Cancelled'.")
 
     supplier_id = fields.Many2one('res.partner',
-                                  string='Preferred supplier',
-                                  compute="_compute_supplier_id")
+                                  string='Preferred supplier', required=True)
     
     cancelled = fields.Boolean(
         string="Cancelled",default=False, copy=False)
@@ -385,16 +352,14 @@ class InheritPurchase(models.Model):
     purchase_req_reference = fields.Char()
     reject_reason = fields.Text(string="Reject Reason",track_visibility='always')
     
-    submit_email = fields.Char()
-
     state = fields.Selection([
         ('draft', 'RFQ'),
         ('submit','Submitted'),
         ('sent', 'RFQ Sent'),
         ('to approve', 'To Approve'),
         ('purchase', 'Purchase Order'),
-        ('reject','Rejected'),
         ('done', 'Confirm'),
+        ('reject','Rejected'),
         ('cancel', 'Cancelled')
     ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
     
@@ -404,7 +369,7 @@ class InheritPurchase(models.Model):
       self.ensure_one()
       ir_model_data = self.env['ir.model.data']
       for order in self:
-        if order.state not in ['draft', 'sent','approval4']:
+        if order.state not in ['draft', 'sent']:
             continue
         order._add_supplier_to_product()
         # Deal with double validation process
@@ -419,10 +384,10 @@ class InheritPurchase(models.Model):
             order.write({'state': 'to approve'})
       self.write({'state':'done'})
       
-      try:  
-        template_id = ir_model_data.get_object_reference('purchase_request', 'email_template_purchase_order_confirm')[1]
-      except ValueError:
-        template_id = False
+#      try:  
+#        template_id = ir_model_data.get_object_reference('purchase_request', 'email_template_purchase_order_confirm')[1]
+#      except ValueError:
+#        template_id = False
       try:
           compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
       except ValueError:
@@ -431,8 +396,8 @@ class InheritPurchase(models.Model):
       ctx.update({
           'default_model': 'purchase.order',
           'default_res_id': self.ids[0],
-          'default_use_template': bool(template_id),
-          'default_template_id': template_id,
+#          'default_use_template': bool(template_id),
+#          'default_template_id': template_id,
           'default_composition_mode': 'comment',
           'custom_layout': "mail.mail_notification_paynow",
           'force_email': True,
@@ -485,6 +450,22 @@ class InheritPurchase(models.Model):
         return self.write({'state':'submit','submit_email':self.env.user.email_formatted})
 
     @api.multi
+    def button_approval_one(self):
+        return self.write({'state':'done','first_email':self.create_uid.email_formatted})
+
+#    @api.multi
+#    def button_approval_two(self):
+#        return self.write({'state':'approval2','second_email':self.create_uid.email_formatted})
+
+#    @api.multi
+#    def button_approval_three(self):
+#        return self.write({'state':'approval3','third_email':self.create_uid.email_formatted})
+
+#    @api.multi
+#    def button_approval_four(self):
+#        return self.write({'state':'approval4','fourth_email':self.create_uid.email_formatted})
+
+    @api.multi
     def button_change_state_to_confirm(self):
         self.name = self.env['ir.sequence'].next_by_code('purchase.order')
         self.write({'state': 'purchase'})
@@ -501,12 +482,16 @@ class InheritPurchase(models.Model):
           else:
             if self.state == 'submit':
               emails = self.submit_email
+            if self.state == 'purchase':
+              emails = self.submit_email,self.first_email
+            if self.state == 'done':
+              emails = self.submit_email,self.first_email,self.second_email
 
             template_id = self.env.ref('purchase_request.email_template_purchase_order_reject').id
             template = self.env['mail.template'].browse(template_id)
             template.write({'email_to': emails})
             template.send_mail(self.id,force_send=True)
-            self.write({'reject_reason':'','state':'reject'})
+            self.write({'reject_reason':'','state':'reject','first_email':'','second_email':''})
 
     @api.multi
     def button_change_state_to_draft(self):
@@ -514,7 +499,7 @@ class InheritPurchase(models.Model):
         if order.state not in ['reject']:
             continue
         else:
-          self.write({'state':'draft'})
+          self.write({'state':'draft','first_email':'','second_email':''})
 
 
 class InheritEmail(models.TransientModel):
