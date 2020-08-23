@@ -301,7 +301,7 @@ class HrEmployee(models.Model):
     age = fields.Float(string='Age', compute='get_age', copy=True, digits=None)
     limit = fields.Boolean(string='Eligible For GOSI')
     coach_id = fields.Many2one('hr.sponsors', string='Sponsor')
-    sponsor_id = fields.Char(related='coach_id.identification_no')
+    sponsor_id = fields.Char(related='coach_id.identification_no', string='Sponsor ID')
     visa_type = fields.Selection([('work_visa','Work Visa'),('visit_visa','Visit Visa'),('commercial_visa','Commercial Visa')],string='Visa Type')
     visa_expire_date_hijri = fields.Char(compute='convert_to_hijri', required=False)
     visa_issuance_date = fields.Date(string='Visa Issuance Date' ,required=False)
