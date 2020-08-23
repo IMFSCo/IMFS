@@ -351,83 +351,95 @@ class InheritPurchase(models.Model):
     is_req_for_purchase = fields.Boolean(default=False)
     purchase_req_reference = fields.Char()
     reject_reason = fields.Text(string="Reject Reason",track_visibility='always')
+    user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
     
+    submit_email = fields.Char()
+    first_email = fields.Char()
+    second_email = fields.Char()
+    third_email = fields.Char()
+    fourth_email = fields.Char()
+
     state = fields.Selection([
         ('draft', 'RFQ'),
-        ('submit','Submitted'),
+        ('submit', 'Submitted'),
         ('sent', 'RFQ Sent'),
         ('to approve', 'To Approve'),
         ('purchase', 'Purchase Order'),
+        ('approval1', 'PM Approval'),
+        ('approval2', 'DPD-OP Approval'),
+        ('approval3', 'FD Approval'),
+        ('approval4', 'PD Approval'),
+        ('reject', 'Rejected'),
         ('done', 'Confirm'),
-        ('reject','Rejected'),
         ('cancel', 'Cancelled')
     ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
-    
+
 
     @api.multi
     def button_confirm(self):
-      self.ensure_one()
-      ir_model_data = self.env['ir.model.data']
-      for order in self:
-        if order.state not in ['draft', 'sent']:
-            continue
-        order._add_supplier_to_product()
-        # Deal with double validation process
-        if order.company_id.po_double_validation == 'one_step' \
-                or (order.company_id.po_double_validation == 'two_step' \
-                    and order.amount_total < self.env.user.company_id.currency_id._convert(
-                    order.company_id.po_double_validation_amount, order.currency_id, order.company_id,
-                    order.date_order or fields.Date.today())) \
-                or order.user_has_groups('purchase.group_purchase_manager'):
-            order.button_approve()
-        else:
-            order.write({'state': 'to approve'})
-      self.write({'state':'done'})
-      
-#      try:  
-#        template_id = ir_model_data.get_object_reference('purchase_request', 'email_template_purchase_order_confirm')[1]
-#      except ValueError:
-#        template_id = False
-      try:
-          compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
-      except ValueError:
-          compose_form_id = False
-      ctx = dict(self.env.context or {})
-      ctx.update({
-          'default_model': 'purchase.order',
-          'default_res_id': self.ids[0],
-#          'default_use_template': bool(template_id),
-#          'default_template_id': template_id,
-          'default_composition_mode': 'comment',
-          'custom_layout': "mail.mail_notification_paynow",
-          'force_email': True,
-          'mark_rfq_as_sent': True,
-      })
+        self.ensure_one()
+        ir_model_data = self.env['ir.model.data']
+        for order in self:
+            if order.state not in ['draft', 'sent', 'approval4']:
+                continue
+            order._add_supplier_to_product()
+            # Deal with double validation process
+            if order.company_id.po_double_validation == 'one_step' \
+                    or (order.company_id.po_double_validation == 'two_step' \
+                        and order.amount_total < self.env.user.company_id.currency_id._convert(
+                        order.company_id.po_double_validation_amount, order.currency_id, order.company_id,
+                        order.date_order or fields.Date.today())) \
+                    or order.user_has_groups('purchase.group_purchase_manager'):
+                order.button_approve()
+            else:
+                order.write({'state': 'to approve'})
+        self.write({'state': 'done'})
 
-      # In the case of a RFQ or a PO, we want the "View..." button in line with the state of the
-      # object. Therefore, we pass the model description in the context, in the language in which
-      # the template is rendered.
-      lang = self.env.context.get('lang')
-      if {'default_template_id', 'default_model', 'default_res_id'} <= ctx.keys():
-          template = self.env['mail.template'].browse(ctx['default_template_id'])
-          if template and template.lang:
-              lang = template.render_template(template.lang, ctx['default_model'], ctx['default_res_id'])
+        try:
+            template_id = \
+                ir_model_data.get_object_reference('purchase_request', 'email_template_purchase_order_confirm')[1]
+        except ValueError:
+            template_id = False
+        try:
+            compose_form_id = ir_model_data.get_object_reference('mail', 'email_compose_message_wizard_form')[1]
+        except ValueError:
+            compose_form_id = False
+        ctx = dict(self.env.context or {})
+        ctx.update({
+            'default_model': 'purchase.order',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'custom_layout': "mail.mail_notification_paynow",
+            'force_email': True,
+            'mark_rfq_as_sent': True,
+        })
 
-      self = self.with_context(lang=lang)
-      ctx['model_description'] = _('Request for Purchase')
-      
-      return {
-          'name': _('Compose Email'),
-          'type': 'ir.actions.act_window',
-          'view_type': 'form',
-          'view_mode': 'form',
-          'res_model': 'mail.compose.message',
-          'views': [(compose_form_id, 'form')],
-          'view_id': compose_form_id,
-          'target': 'new',
-          'context': ctx,
-      }
-        
+        # In the case of a RFQ or a PO, we want the "View..." button in line with the state of the
+        # object. Therefore, we pass the model description in the context, in the language in which
+        # the template is rendered.
+        lang = self.env.context.get('lang')
+        if {'default_template_id', 'default_model', 'default_res_id'} <= ctx.keys():
+            template = self.env['mail.template'].browse(ctx['default_template_id'])
+            if template and template.lang:
+                lang = template.render_template(template.lang, ctx['default_model'], ctx['default_res_id'])
+
+        self = self.with_context(lang=lang)
+        ctx['model_description'] = _('Request for Purchase')
+
+        return {
+            'name': _('Compose Email'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form_id, 'form')],
+            'view_id': compose_form_id,
+            'target': 'new',
+            'context': ctx,
+        }
+
     @api.multi
     def button_confirm_old(self):
         for order in self:
@@ -451,19 +463,19 @@ class InheritPurchase(models.Model):
 
     @api.multi
     def button_approval_one(self):
-        return self.write({'state':'done','first_email':self.create_uid.email_formatted})
+        return self.write({'state':'approval1','first_email':self.create_uid.email_formatted})\
 
-#    @api.multi
-#    def button_approval_two(self):
-#        return self.write({'state':'approval2','second_email':self.create_uid.email_formatted})
+    @api.multi
+    def button_approval_two(self):
+       return self.write({'state':'approval2','second_email':self.create_uid.email_formatted})
 
-#    @api.multi
-#    def button_approval_three(self):
-#        return self.write({'state':'approval3','third_email':self.create_uid.email_formatted})
+    @api.multi
+    def button_approval_three(self):
+       return self.write({'state':'approval3','third_email':self.create_uid.email_formatted})
 
-#    @api.multi
-#    def button_approval_four(self):
-#        return self.write({'state':'approval4','fourth_email':self.create_uid.email_formatted})
+    @api.multi
+    def button_approval_four(self):
+       return self.write({'state':'approval4','fourth_email':self.create_uid.email_formatted})
 
     @api.multi
     def button_change_state_to_confirm(self):
