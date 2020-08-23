@@ -1,14 +1,11 @@
 {
     "name": "Purchase Request",
-    "name": "Base Maintenance",
-    "version": "11.0.1.0.0",
-    'author': "Muhammad Faizan",
-    'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
-    'category': 'Custom',
-
+    "author": "SIT & think digital",
+    "version": "12.0.1",
     "summary": "Use this module to have notification of requirements of "
                "materials and/or external services and keep track of such "
                "requirements",
+    "category": "Purchase Management",
     "depends": ['mail',
         "purchase",
         "product","purchase_requisition"
