@@ -5,7 +5,7 @@
  'author': "Muhammad Faizan",
  'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
  'category': 'Custom',
- 'version': '12.0.3.1.1',
+ 'version': '11.0.3.1.1',
  'license': 'AGPL-3',
  'images': [],
  'depends': [

@@ -12,7 +12,7 @@
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-    'version': '0.2',
+    'version': '11.0.2',
     'images': ['static/description/bannar.jpg'],
 
     # any module necessary for this one to work correctly

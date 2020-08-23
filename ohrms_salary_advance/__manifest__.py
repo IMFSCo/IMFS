@@ -22,7 +22,7 @@
 ###################################################################################
 {
     'name': 'Open HRMS Advance Salary',
-    'version': '11.0.1.1.0',
+    'version': '11.0.1',
     'summary': 'Advance Salary In HR',
     'description': """
         Helps you to manage Advance Salary Request of your company's staff.

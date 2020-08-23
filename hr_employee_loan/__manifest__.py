@@ -4,7 +4,7 @@
 
 {
     'name' : 'Employee Loan Management',
-    'version' : '1.1',
+    'version' : '11.0.1',
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',

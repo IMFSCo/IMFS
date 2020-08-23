@@ -2,10 +2,10 @@
 {
     'name': "Custom Maintenance",
     'summary': """Customization for maintenance""",
-    'author': "SIT & think digital",
-    'website': "http://sitco.odoo.com/",
+    'author': "Muhammad Faizan",
+    'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-    'version': '12.0.1',
+    'version': '11.0.1',
 
     'depends': ['maintenance','mrp_repair'],
 
