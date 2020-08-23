@@ -17,7 +17,7 @@
 						</div>
                 </xpath>
                 <xpath expr="//button[@name='action_toggle_is_locked']" position="after">
-                    <button name="create_requisition" type="object" class="oe_highlight" string="Create Requisition" attrs="{'invisible':['|',('state','=','confirmed'),('has_requisition','=',True)]}" />
+                    <button name="create_requisition" type="object" class="oe_highlight" string="Create Requisition" attrs="{'invisible':['|',('state','!=','confirmed'),('has_requisition','=',True)]}" />
                 </xpath>
             </field>
         </record>
