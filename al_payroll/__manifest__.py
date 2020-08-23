@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Payroll Customizations',
+    'name': 'Payroll Customization',
     'summary': """Payroll module related customizations""",
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
