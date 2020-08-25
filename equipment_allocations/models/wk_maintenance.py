@@ -223,7 +223,7 @@ class AllocationRequest(models.Model):
         track_visibility='onchange', copy=False, readonly=True,
         states={'new': [('readonly', False)]}, required=True, domain=lambda self: [('id', 'in', self.get_user_domain())])
     request_employee = fields.Many2one('hr.employee', states={'new': [('readonly', False)]}, required=True)
-    req_emp_id = fields.Char(related='request_employee.employee_number')
+    req_emp_id = fields.Char(related='request_employee.staff_id')
     equipment_qty = fields.Char(string='Quantity')
     req_emp_location = fields.Char(related='request_employee.work_location')
 
@@ -386,7 +386,8 @@ class AllocationRequest(models.Model):
                         raise UserError(
                             _("You can return only those requests which are Allocated."))
                     else:
-                        total_seconds = datetime.now() - obj.request_date
+                        print(datetime.now())
+                        total_seconds = datetime.now() - datetime.strptime(obj.request_date,'%Y-%m-%d %H:%M:%S')
                         vals.update({'return_to': self._uid,
                                      'close_date': datetime.now(),
                                      'duration': total_seconds.total_seconds() / 3600})
