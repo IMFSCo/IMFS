@@ -254,6 +254,12 @@ class PurchaseRequestLine(models.Model):
                 rec.is_editable = False
             else:
                 rec.is_editable = True
+                
+    @api.multi
+    def _compute_supplier_id(self):
+        for rec in self:
+            rec.supplier_id = self.env['res.partner'].search([('name', 'ilike', 'INTERNATIONAL MEDICAL FURNITURE & SUPPLIES')])
+
 
     product_id = fields.Many2one(
         'product.product', 'Product',
@@ -308,7 +314,7 @@ class PurchaseRequestLine(models.Model):
         help="If event is created, the status is 'Draft'. If event is confirmed for the particular dates the status is set to 'Confirmed'. If the event is over, the status is set to 'Done'. If event is cancelled the status is set to 'Cancelled'.")
 
     supplier_id = fields.Many2one('res.partner',
-                                  string='Preferred supplier', required=True)
+                                  string='Preferred supplier', compute="_compute_supplier_id")
     
     cancelled = fields.Boolean(
         string="Cancelled",default=False, copy=False)
