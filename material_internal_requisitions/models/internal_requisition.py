@@ -105,6 +105,7 @@ class InternalRequisition(models.Model):
         readonly=True,
         copy=False,
     )
+    mo_reference = fields.Char('MO Reference')
     company_id = fields.Many2one(
         'res.company',
         string='Company',
@@ -460,10 +461,10 @@ class inherit_backorder(models.TransientModel):
         return res
 
 
-class InheritProduct(models.Model):
-    _inherit = 'product.product'
+#class InheritProduct(models.Model):
+#    _inherit = 'product.product'
 
-    _sql_constraints = [
-        ('name_uniq', 'unique(product_tmpl_id)', 'Product with this ID is already created'),
-    ]
+#    _sql_constraints = [
+#        ('name_uniq', 'unique(product_tmpl_id)', 'Product with this ID is already created'),
+#    ]
 

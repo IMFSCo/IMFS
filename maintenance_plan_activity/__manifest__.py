@@ -7,7 +7,7 @@
         This module allows defining in the maintenance plan activities that
         will be created once the maintenance requests are created as a
         consequence of the plan itself.""",
-    'version': '12.0.1.0.0',
+    'version': '11.0.1.0.0',
     'license': 'AGPL-3',
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",

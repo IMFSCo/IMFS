@@ -2,10 +2,10 @@
 {
     'name': 'Payroll Customization',
     'summary': """Payroll module related customizations""",
-    'author': "SIT & think digital",
-    'website': "http://sitco.odoo.com/",
+    'author': "Muhammad Faizan",
+    'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-    'version': '12.0.1',
+    'version': '11.0.1',
 
     'depends': ['hr_payroll', 'hr_contract', 'account', 'base', 'hr','mail',
                 ],

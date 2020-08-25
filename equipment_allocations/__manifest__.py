@@ -3,8 +3,7 @@
   "name"                 :  "Equipment Allocations",
   "summary"              :  "The module provides a way to manage workplace equipments. The user can enter the repective request for an equipment allocation to an employee.",
   "category"             :  "Custom",
-  "version"              :  "1.0.1",
-  "sequence"             :  1,
+  "version"              :  "11.0.1",
   "author"               :  "Muhammad Faizan",
   "license"              :  "Other proprietary",
   "website"              :  "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
@@ -15,6 +14,7 @@ Odoo equipment allocation records
 Lend equipment to employees
 Assign equipment to employees
 """,
+  "live_test_url":"http://odoodemo.webkul.com/?module=equipment_allocations",
   "depends":['hr_maintenance','maintenance','stock','hr','web'],
   "data":  [
       'edi/mail_template.xml',

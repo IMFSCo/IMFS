@@ -18,7 +18,7 @@
                              string="New PO details:"/>
                      <newline/>
                      <group>
-                         <field name="supplier_id" string="Request From" readonly="1"/>
+                         <field name="supplier_id" string="Request From" />
                      </group>
                      <newline/>
                      <group>

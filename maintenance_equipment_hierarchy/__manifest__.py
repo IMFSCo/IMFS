@@ -7,7 +7,7 @@
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',
-    'version': '12.0.1.0.0',
+    'version': '11.0.1',
     'license': 'LGPL-3',
     'depends': [
         'maintenance',

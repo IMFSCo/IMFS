@@ -5,7 +5,7 @@
     "name": "Maintenance Team Hierarchy",
     "summary": """
         Create hierarchies on teams""",
-    "version": "12.0.1.0.0",
+    "version": "11.0.1.0.0",
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
     'category': 'Custom',

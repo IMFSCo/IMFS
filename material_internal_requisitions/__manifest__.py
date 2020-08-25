@@ -1,6 +1,6 @@
 {
     'name': 'Product/Material Internal Requisitions by Employees/Users',
-    'version': '12.0.1',
+    'version': '11.0.1',
     'summary': """This module allow your employees/users to create Internal Requisitions.""",
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",

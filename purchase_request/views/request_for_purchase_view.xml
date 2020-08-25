@@ -262,11 +262,11 @@
                     <button name="action_rfq_send" states="sent" string="Re-Send by Email" type="object" context="{'send_rfq':True}"/>
 
                     <button name="button_change_state_to_confirm" type="object" states="sent,submit" string="Confirm Order" class="oe_highlight" id="bid_confirm"/>
-                    <button name="button_approval_one" states="purchase" class="oe_highlight" string="PM Approval" type="object" groups="purchase_request.allow_approve_1"/>
-                    <button name="button_approval_two" states="approval1" class="oe_highlight" string="DPD-OP Approval" type="object" groups="purchase_request.allow_approve_2"/>
-                    <button name="button_approval_three" states="approval2" class="oe_highlight" string="FD Approval" type="object" groups="purchase_request.allow_approve_3"/>
-                    <button name="button_approval_four" states="approval3" class="oe_highlight" string="PD Approval" type="object" groups="purchase_request.allow_approve_4"/>
-                    <button name="button_confirm" states="approval4" string="Confirm" type="object" />
+                    <button name="button_approval_one" states="purchase" class="oe_highlight" string="EM Approval" type="object" groups="purchase_request.allow_approve_1"/>
+                    <button name="button_approval_two" states="approval1" class="oe_highlight" string="PM Approval" type="object" groups="purchase_request.allow_approve_2"/>
+                    <button name="button_approval_three" states="approval2" class="oe_highlight" string="FM Approval" type="object" groups="purchase_request.allow_approve_3"/>
+                    <button name="button_approval_four" states="approval3" class="oe_highlight" string="GM Approval" type="object" groups="purchase_request.allow_approve_4"/>
+                        <button name="button_confirm" states="approval4" string="Confirm" type="object" />
                     <button name="%(wizard_request_reject_reason)d" states="purchase,approval1,approval2,approval3"
                         string="Reject" type="action"
                         groups="purchase_request.group_purchase_request_manager" />

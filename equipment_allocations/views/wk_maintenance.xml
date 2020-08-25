@@ -136,10 +136,10 @@
                 </xpath>
                 <xpath expr="//field[@name='location']" position="after">
                     <field name="purchase_date" />
-                    <label for="warranty_period"/>
+              <!--      <label for="warranty_period"/>
                     <div class="o_row">
                         <field name="warranty_period" class="oe_inline" /> Months
-                    </div>
+                    </div>-->
                 </xpath>
                 <xpath expr="//notebook" position="inside">
                     <page string="History">
@@ -350,7 +350,7 @@
                             <group string="Employee Information" name="wk_employee_detail">
                                 <!--<field name="request_user_id" string="Assigned To" options="{'no_create_edit': True, 'no_open':True,'no_create':True}"/>-->
                                 <field name="request_employee" string="Assign To" options="{'no_create_edit': True, 'no_open':True,'no_create':True}"/>
-                                <field name="req_emp_id" string="ID"/>
+                                <field name="req_emp_id" string="ID" readonly="1"/>
                                 <field name="req_emp_location" string="Location"/>
                                 <field name="approved_by" string="Approved By" readonly="1" attrs="{ 'invisible':[('approved_by','=',False)] }"/>
                                 <field name="return_to" string="Return To" readonly="1" attrs="{ 'invisible':[('return_to','=',False)] }" />

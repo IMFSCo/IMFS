@@ -5,7 +5,7 @@
     'name': 'Maintenance Request Stage transition',
     'summary': """
         Manage transition visibility and management between stages""",
-    'version': '12.0.1.0.0',
+    'version': '11.0.1.0.0',
     'license': 'AGPL-3',
     'author': "Muhammad Faizan",
     'website': "https://www.linkedin.com/in/engr-muhammad-faizan-80011782/",
