@@ -19,6 +19,8 @@ class InheritManufacturing(models.Model):
         employee = self.env['hr.employee'].search([('user_id', '=', self.env.uid)], limit=1)
         self.env['internal.requisition'].create({'request_emp':employee.id,
                                                  'department_id':employee.department_id.id,
+                                                 'desti_loca_id':employee.desti_loca_id.id,
+                                                 'fixed_asset_desti_loca_id':employee.fixed_asset_desti_loca_id.id,
                                                  'request_date':date.today(),
                                                  'date_end':datetime.now(),
                                                  'mo_reference':self.name,
