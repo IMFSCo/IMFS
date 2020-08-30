@@ -357,57 +357,66 @@ class HrEmployee(models.Model):
     def convert_to_hijri(self):
         for rec in self:
             if rec.id_expiry_date:
-                year = (rec.id_expiry_date).year
-                month = (rec.id_expiry_date).month
-                day = (rec.id_expiry_date).day
+                expiry = datetime.datetime.strptime(rec.id_expiry_date,'%Y-%m-%d')
+                year = (expiry).year
+                month = (expiry).month
+                day = (expiry).day
                 id_exp_date = convert.Gregorian(year, month, day).to_hijri()
                 rec.id_expiry_date_hijri = id_exp_date
             if rec.id_issuance_date:
-                year = (rec.id_issuance_date).year
-                month = (rec.id_issuance_date).month
-                day = (rec.id_issuance_date).day
+                issuance = datetime.datetime.strptime(rec.id_issuance_date,'%Y-%m-%d')
+                year = (issuance).year
+                month = (issuance).month
+                day = (issuance).day
                 id_issue_date = convert.Gregorian(year, month, day).to_hijri()
                 rec.id_issuance_date_hijri = id_issue_date
             if rec.passport_issuance_date:
-                year = (rec.passport_issuance_date).year
-                month = (rec.passport_issuance_date).month
-                day = (rec.passport_issuance_date).day
+                passport_issuance = datetime.datetime.strptime(rec.passport_issuance_date,'%Y-%m-%d')
+                year = (passport_issuance).year
+                month = (passport_issuance).month
+                day = (passport_issuance).day
                 pass_issue_date = convert.Gregorian(year, month, day).to_hijri()
                 rec.passport_issuance_date_hijri = pass_issue_date
             if rec.passport_expiry_date:
-                year = (rec.passport_expiry_date).year
-                month = (rec.passport_expiry_date).month
-                day = (rec.passport_expiry_date).day
+                passport_expiry = datetime.datetime.strptime(rec.passport_expiry_date,'%Y-%m-%d')
+                year = (passport_expiry).year
+                month = (passport_expiry).month
+                day = (passport_expiry).day
                 pass_exp_date = convert.Gregorian(year, month, day).to_hijri()
                 rec.passport_expiry_date_hijri = pass_exp_date
             if rec.visa_issuance_date:
-                year = (rec.visa_issuance_date).year
-                month = (rec.visa_issuance_date).month
-                day = (rec.visa_issuance_date).day
+                visa_issuance = datetime.datetime.strptime(rec.visa_issuance_date,'%Y-%m-%d')
+                year = (visa_issuance).year
+                month = (visa_issuance).month
+                day = (visa_issuance).day
                 visa_issue_date = convert.Gregorian(year, month, day).to_hijri()
                 rec.visa_issuance_date_hijri = visa_issue_date
             if rec.visa_expire:
-                year = (rec.visa_expire).year
-                month = (rec.visa_expire).month
-                day = (rec.visa_expire).day
+                visa_expiry = datetime.datetime.strptime(rec.visa_expire,'%Y-%m-%d')
+                year = (visa_expiry).year
+                month = (visa_expiry).month
+                day = (visa_expiry).day
                 visa_exp_date = convert.Gregorian(year, month, day).to_hijri()
                 rec.visa_expire_date_hijri = visa_exp_date
             if rec.health_issue_date:
-                year = (rec.health_issue_date).year
-                month = (rec.health_issue_date).month
-                day = (rec.health_issue_date).day
+                health_issuance = datetime.datetime.strptime(rec.health_issue_date,'%Y-%m-%d')
+                year = (health_issuance).year
+                month = (health_issuance).month
+                day = (health_issuance).day
                 health_issue_date = convert.Gregorian(year, month, day).to_hijri()
                 rec.health_issue_date_hijri = health_issue_date
             if rec.health_expiry_date:
-                year = (rec.health_expiry_date).year
-                month = (rec.health_expiry_date).month
-                day = (rec.health_expiry_date).day
+                health_expiry = datetime.datetime.strptime(rec.health_expiry_date,'%Y-%m-%d')
+                year = (health_expiry).year
+                month = (health_expiry).month
+                day = (health_expiry).day
                 health_exp_date = convert.Gregorian(year, month, day).to_hijri()
                 rec.health_expiry_date_hijri = health_exp_date
             if rec.residence_expire_date:
-                year = (rec.residence_expire_date).year
-                month = (rec.residence_expire_date).month
-                day = (rec.residence_expire_date).day
+                residence_expiry = datetime.datetime.strptime(rec.residence_expire_date,'%Y-%m-%d')
+                year = (residence_expiry).year
+                month = (residence_expiry).month
+                day = (residence_expiry).day
                 residence_exp_date = convert.Gregorian(year, month, day).to_hijri()
                 rec.residence_expire_date_hijri = residence_exp_date
 
