@@ -271,7 +271,7 @@
                         string="Reject" type="action"
                         groups="purchase_request.group_purchase_request_manager" />
                     <button name="button_change_state_to_draft" states="reject" string="Set as Draft" type="object" />
-                    <button name="button_cancel" states="draft,submit,sent,purchase,approval1,approval2,approval3,approval4,reject" string="Cancel" type="object" />
+                    <button name="button_cancel" states="draft,submit,sent,purchase,approval1,approval2,approval3,approval4,reject,cancel" string="Cancel" type="object" groups="purchase_request.allow_approve_4"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,submit,sent,purchase,approval1,approval2,approval3,approval4,done,reject,cancel" readonly="1"/>
                     </header>
                 </xpath>
