@@ -512,7 +512,7 @@ class InheritPurchase(models.Model):
     @api.multi
     def button_change_state_to_draft(self):
       for order in self:
-        if order.state not in ['reject']:
+        if order.state not in ['reject','cancel']:
             continue
         else:
           self.write({'state':'draft','first_email':'','second_email':''})
