@@ -551,6 +551,17 @@ class HRSponosors(models.Model):
 
     name = fields.Char(string='Name(s)', required=True)
     identification_no = fields.Char(string='Identification Number(s)', required=True)
+    
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    ref = fields.Char(string='Internal Reference', index=True, default=lambda self: self.env['ir.sequence'].next_by_code('partner.serial'))
+
+    _sql_constraints = [
+        ('ref_uniq', 'unique (ref)', _("This Code already exists !")),
+    ]
+
 
 
 
