@@ -8,6 +8,8 @@ from odoo.exceptions import ValidationError
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    ref = fields.Char(string='Internal Reference', index=True, default=lambda self: self.env['ir.sequence'].next_by_code('partner.serial'))
+    
     @api.multi
     @api.constrains('ref', 'is_company', 'company_id')
     def _check_ref(self):
