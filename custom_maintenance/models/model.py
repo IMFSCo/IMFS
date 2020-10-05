@@ -86,3 +86,16 @@ class InheritRepair(models.Model):
             maintenance_ids = self.env['maintenance.request'].sudo().search([])
             maintenance = maintenance_ids.filtered(lambda x: x.code == self.maintenance_code)
         obj.maintenance_count = len(maintenance)
+        
+        
+        
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    ref = fields.Char(string='Internal Reference', index=True, default=lambda self: self.env['ir.sequence'].next_by_code('partner.serial'))
+
+    _sql_constraints = [
+        ('ref_uniq', 'unique (ref)', _("This Code already exists !")),
+    ]
+
+
